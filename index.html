@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ria Pahuja | 100-Day Finance Challenge</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;700&family=Inter:wght@400;500&display=swap">
+<style>
+:root{--bg:#faf8f4;--fg:#1d2430;--mute:#6b7280;--acc:#0f5c4d;--card:#fff;--line:#e4e0d8;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12161c;--fg:#e8e6e1;--mute:#9aa3af;--acc:#5fd0b4;--card:#1a2029;--line:#2a313c}}
+:root[data-theme="dark"]{--bg:#12161c;--fg:#e8e6e1;--mute:#9aa3af;--acc:#5fd0b4;--card:#1a2029;--line:#2a313c}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.7 Inter,system-ui,sans-serif}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;line-height:1.2}
+header{border-bottom:1px solid var(--line)}
+nav{max-width:720px;margin:0 auto;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+nav a{color:var(--fg);text-decoration:none;font-weight:500}
+.brand{font-family:Fraunces,Georgia,serif;font-weight:700;font-size:1.15rem}
+.links a{margin-left:16px;color:var(--acc)}
+main{max-width:720px;margin:0 auto;padding:32px 20px 64px}
+.hero{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.avatar{width:84px;height:84px;border-radius:50%;background:var(--acc);color:var(--bg);display:grid;place-items:center;font:700 2rem Fraunces,Georgia,serif}
+.tag{color:var(--mute);margin:0}
+.btn{display:inline-block;background:var(--acc);color:var(--bg);padding:8px 16px;border-radius:8px;text-decoration:none;font-weight:500}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin:12px 0;display:block;color:inherit;text-decoration:none}
+.card:hover{border-color:var(--acc)}
+.card small{color:var(--acc);font-weight:500}
+.card h3{margin:4px 0}
+.card p{margin:0;color:var(--mute);font-size:.95rem}
+.pager{display:flex;justify-content:space-between;margin-top:40px;gap:12px}
+.pager a{color:var(--acc);text-decoration:none;font-weight:500}
+.meta{color:var(--mute);font-size:.9rem}
+footer{text-align:center;color:var(--mute);font-size:.85rem;padding:24px}
+</style>
+</head>
+<body>
+<header><nav>
+<a class="brand" href="#/">The Finance Challenge</a>
+<span class="links"><a href="#/">Home</a><a href="#/about">About</a><a id="li" href="https://www.linkedin.com/in/YOUR-PROFILE" target="_blank" rel="noopener">LinkedIn</a></span>
+</nav></header>
+<main id="app"></main>
+<footer>Written by hand, no AI. Every post is my own understanding.</footer>
+
+<script>
+// ===== EDIT HERE =====
+const AUTHOR = { name: "Ria Pahuja", initial: "R", tagline: "Finance enthusiast. Learning in public.",
+  bio: [
+  "Hi, I'm Ria. I'm passionate about finance and equity research.",
+  "I did my bachelor's in psychology at Christ University, Bangalore, where I wrote a paper that got Scopus indexed this year. I'm now doing my MBA, specializing in finance, at Amity Business School, Noida. Along the way, I've led a number of groups to successfully complete events, and I'm currently writing a couple of chapters for IGI Global, whose proposal has been accepted.",
+  "What drew me to markets is how uncertain yet analyzable they are. They almost yearn to be understood. So many factors move them: macroeconomic and microeconomic, industry-level and company-specific, domestic and global. My background might not be in equity research, but I want to build my future in it."
+  ] };
+const INTRO = "That's why I'm starting my 100-day challenge here. Each day, I'll write about a finance concept or equity research topic that interests me, based only on what I've read and understood myself, with no AI-generated writing. It's a way to teach myself in public, and maybe teach you a little along the way. Some posts will be rough, and that's part of the process.";
+// Add each day as a new item. Use <p> tags for paragraphs.
+const POSTS = [
+  { day: 1, date: "1 Oct 2026", title: "Day 1: Your first topic", summary: "A one-line summary of today's post.",
+    body: "<p>Write your Day 1 post here.</p>" }
+];
+// ======================
+
+const app = document.getElementById("app");
+const esc = s => s.replace(/[&<>]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+const card = p => `<a class="card" href="#/day/${p.day}"><small>Day ${p.day} · ${esc(p.date)}</small><h3>${esc(p.title)}</h3><p>${esc(p.summary)}</p></a>`;
+
+function home() {
+  const a = AUTHOR;
+  return `<div class="hero"><div class="avatar">${esc(a.initial)}</div><div><h1 style="margin:0">${esc(a.name)}</h1><p class="tag">${esc(a.tagline)}</p></div></div>
+  ${a.bio.map(t=>`<p>${esc(t)}</p>`).join("")}
+  <h2>The challenge</h2><p>${esc(INTRO)}</p>
+  <h2>Posts</h2>${POSTS.slice().reverse().map(card).join("")}`;
+}
+function about() {
+  return `<h1>About the author</h1>${AUTHOR.bio.map(t=>`<p>${esc(t)}</p>`).join("")}<p><a class="btn" href="${document.getElementById("li").href}" target="_blank" rel="noopener">Connect on LinkedIn</a></p>`;
+}
+function post(n) {
+  const i = POSTS.findIndex(p => p.day === n);
+  if (i < 0) return "<h1>Not found</h1><p><a href='#/'>Back home</a></p>";
+  const p = POSTS[i], prev = POSTS[i - 1], next = POSTS[i + 1];
+  return `<p class="meta">Day ${p.day} · ${esc(p.date)}</p><h1>${esc(p.title)}</h1>${p.body}
+  <div class="pager"><span>${prev ? `<a href="#/day/${prev.day}">← Day ${prev.day}</a>` : ""}</span><a href="#/">All posts</a><span>${next ? `<a href="#/day/${next.day}">Day ${next.day} →</a>` : ""}</span></div>`;
+}
+function route() {
+  const h = location.hash.replace(/^#/, "") || "/";
+  const m = h.match(/^\/day\/(\d+)/);
+  app.innerHTML = m ? post(+m[1]) : h === "/about" ? about() : home();
+  window.scrollTo(0, 0);
+}
+window.addEventListener("hashchange", route);
+route();
+</script>
+</body>
+</html>
